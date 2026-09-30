@@ -20,6 +20,8 @@
 - 데이터 접근: `Core/Services`, 모델: `Core/Models`
 - 테스트: 단위 = Swift Testing (앱 소스 경로 미러링), UI = XCTest
 - UI 문자열: `Resources/Localizable.xcstrings` 에 ko 번역 추가
+- UI 작업 전 `docs/design/README.md` Read (피그마 추출 토큰·화면·충돌 문구). 피그마 MCP는 호출 한도 있음 → 문서 우선
+- 제품 범위: iOS 클라이언트만. 서버 기능은 `Core/Services` 프로토콜 경계만
 - 검증: exit code로 판정, 파이프로 출력 자르지 않기
 
 ## 구조
