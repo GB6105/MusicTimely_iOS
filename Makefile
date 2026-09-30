@@ -3,7 +3,7 @@ SCHEME      := MusicTimely
 PROJECT     := $(SCHEME).xcodeproj
 DESTINATION ?= platform=iOS Simulator,name=iPhone 14 Pro,OS=26.5
 DERIVED     := .build/DerivedData
-SOURCES     := MusicTimely MusicTimelyTests MusicTimelyUITests
+SOURCES     := MusicTimely MusicTimelyWidgets Shared MusicTimelyTests MusicTimelyUITests
 
 .PHONY: help generate open build test unit-test lint format clean archive testflight check-release-env device
 

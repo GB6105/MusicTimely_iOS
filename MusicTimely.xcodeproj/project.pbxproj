@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		83E6540A5617696E64974131 /* MusicTimelyWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F3CFA968F1F21D7B22A43427 /* MusicTimelyWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		438DF7568E7905972EF76C2F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -13,6 +17,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9E9209186F51056C4FD6C39D;
 			remoteInfo = MusicTimely;
+		};
+		945106DA916E908A67C9D7C5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4979C1DD243784D77C20842A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F9D674E41FC13EB56D71634;
+			remoteInfo = MusicTimelyWidgets;
 		};
 		97A82C0529A0AA4DC0FC90D3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,13 +34,46 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		14768DE0D390734E5E980603 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				83E6540A5617696E64974131 /* MusicTimelyWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		6BE49EF23399F2D3E7A109A7 /* MusicTimelyTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MusicTimelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC08643620A75483A2A70D35 /* MusicTimelyUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MusicTimelyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3CFA968F1F21D7B22A43427 /* MusicTimelyWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MusicTimelyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB2A06D0A624966F0524D22F /* MusicTimely.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MusicTimely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		110F5CFCD1454AB8D9041CB1 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		482CB4BA9A9E535965383C02 /* MusicTimelyWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = MusicTimelyWidgets;
+			sourceTree = "<group>";
+		};
 		53FEBAD467ED93FE4317621B /* MusicTimelyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			explicitFileTypes = {
@@ -66,6 +110,7 @@
 				FB2A06D0A624966F0524D22F /* MusicTimely.app */,
 				6BE49EF23399F2D3E7A109A7 /* MusicTimelyTests.xctest */,
 				CC08643620A75483A2A70D35 /* MusicTimelyUITests.xctest */,
+				F3CFA968F1F21D7B22A43427 /* MusicTimelyWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +121,8 @@
 				A2285F44F135F8D3F4CE11EE /* MusicTimely */,
 				53FEBAD467ED93FE4317621B /* MusicTimelyTests */,
 				D881D3E422D2F8521D48F980 /* MusicTimelyUITests */,
+				482CB4BA9A9E535965383C02 /* MusicTimelyWidgets */,
+				110F5CFCD1454AB8D9041CB1 /* Shared */,
 				6823FC75AA59DE9FA52FFC78 /* Products */,
 			);
 			indentWidth = 4;
@@ -108,19 +155,44 @@
 			productReference = CC08643620A75483A2A70D35 /* MusicTimelyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		9E9209186F51056C4FD6C39D /* MusicTimely */ = {
+		8F9D674E41FC13EB56D71634 /* MusicTimelyWidgets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2EF7907ECCD45D4F7A37F534 /* Build configuration list for PBXNativeTarget "MusicTimely" */;
+			buildConfigurationList = 1B7FC47264F665FF77E885DB /* Build configuration list for PBXNativeTarget "MusicTimelyWidgets" */;
 			buildPhases = (
-				BDBB4BCB25ADC02F68825A5E /* Sources */,
-				63450BF98D9B62569B041368 /* Resources */,
+				F4EF3B5F3043DDD490157419 /* Sources */,
+				5580E53C81ED921407CAB2F6 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				482CB4BA9A9E535965383C02 /* MusicTimelyWidgets */,
+				110F5CFCD1454AB8D9041CB1 /* Shared */,
+			);
+			name = MusicTimelyWidgets;
+			packageProductDependencies = (
+			);
+			productName = MusicTimelyWidgets;
+			productReference = F3CFA968F1F21D7B22A43427 /* MusicTimelyWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		9E9209186F51056C4FD6C39D /* MusicTimely */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EF7907ECCD45D4F7A37F534 /* Build configuration list for PBXNativeTarget "MusicTimely" */;
+			buildPhases = (
+				BDBB4BCB25ADC02F68825A5E /* Sources */,
+				63450BF98D9B62569B041368 /* Resources */,
+				14768DE0D390734E5E980603 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64E618BF92466436915CB6D0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
 				A2285F44F135F8D3F4CE11EE /* MusicTimely */,
+				110F5CFCD1454AB8D9041CB1 /* Shared */,
 			);
 			name = MusicTimely;
 			packageProductDependencies = (
@@ -163,6 +235,9 @@
 					06244F39040E39F1D6842991 = {
 						TestTargetID = 9E9209186F51056C4FD6C39D;
 					};
+					8F9D674E41FC13EB56D71634 = {
+						ProvisioningStyle = Automatic;
+					};
 					9E9209186F51056C4FD6C39D = {
 						ProvisioningStyle = Automatic;
 					};
@@ -185,11 +260,19 @@
 				9E9209186F51056C4FD6C39D /* MusicTimely */,
 				F2BEC3593E889F92051E28BD /* MusicTimelyTests */,
 				06244F39040E39F1D6842991 /* MusicTimelyUITests */,
+				8F9D674E41FC13EB56D71634 /* MusicTimelyWidgets */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5580E53C81ED921407CAB2F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		63450BF98D9B62569B041368 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +318,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F4EF3B5F3043DDD490157419 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -247,6 +337,11 @@
 			isa = PBXTargetDependency;
 			target = 9E9209186F51056C4FD6C39D /* MusicTimely */;
 			targetProxy = 97A82C0529A0AA4DC0FC90D3 /* PBXContainerItemProxy */;
+		};
+		64E618BF92466436915CB6D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F9D674E41FC13EB56D71634 /* MusicTimelyWidgets */;
+			targetProxy = 945106DA916E908A67C9D7C5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -267,6 +362,25 @@
 				TEST_TARGET_NAME = MusicTimely;
 			};
 			name = Release;
+		};
+		19828CB7D0F9B32FAC63A4D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/MusicTimelyWidgets-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gb6105.MusicTimely.Widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
 		};
 		1C4BF5D49E31F99D248F0163 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -315,6 +429,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/MusicTimely-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -330,6 +445,25 @@
 			};
 			name = Release;
 		};
+		AC99AC80B8F587EB5A1FFA2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/MusicTimelyWidgets-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.gb6105.MusicTimely.Widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		CBF1656A8D1491F46F7DD5DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -341,6 +475,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/MusicTimely-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,7 +547,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -493,7 +628,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -509,6 +644,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1B7FC47264F665FF77E885DB /* Build configuration list for PBXNativeTarget "MusicTimelyWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19828CB7D0F9B32FAC63A4D3 /* Debug */,
+				AC99AC80B8F587EB5A1FFA2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		2EF7907ECCD45D4F7A37F534 /* Build configuration list for PBXNativeTarget "MusicTimely" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

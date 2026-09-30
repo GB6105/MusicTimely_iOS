@@ -37,6 +37,8 @@
 | `MusicTimely/Features/` | Assign, Session, Result, Memo, Correction, MusicSheet, Settings, Recovery |
 | `MusicTimely/DesignSystem/` | 토큰(`Theme`, `Palette`, `AppFont`), 레코드·톤암·버튼 컴포넌트 |
 | `MusicTimely/Resources/` | 아이콘 에셋, 폰트, 문자열 카탈로그 |
+| `Shared/` | 앱·위젯 확장 공용 (Live Activity 데이터, 잠금화면 인텐트, 작은 레코드) |
+| `MusicTimelyWidgets/` | 위젯 확장: Live Activity, Dynamic Island, 잠금화면 위젯 (기본 격리 없음) |
 | `Config/MusicTimely-Info.plist` | 생성 plist에 병합되는 키 (폰트, 백그라운드 오디오, 음악 앱 스킴) |
 | `MusicTimelyTests/` | 단위 테스트 |
 | `MusicTimelyUITests/` | UI 테스트 |

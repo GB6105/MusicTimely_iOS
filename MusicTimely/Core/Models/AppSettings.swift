@@ -44,6 +44,32 @@ nonisolated struct AppSettings: Codable, Equatable, Sendable {
     var customLinkURL: String?
     var noticeShownProviders: [String] = []
     var notificationPromptShown = false
+    /// 잠금화면 Live Activity에 곡·시간 세부를 숨긴다 (피그마 Private).
+    var lockScreenPrivate = false
+
+    init() {}
+
+    /// 새 필드가 없는 이전 버전 설정도 읽을 수 있게 한다.
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        let d = AppSettings()
+        version = try c.decodeIfPresent(Int.self, forKey: .version) ?? d.version
+        averageSongSeconds = try c.decodeIfPresent(Int.self, forKey: .averageSongSeconds) ?? d.averageSongSeconds
+        showSongs = try c.decodeIfPresent(Bool.self, forKey: .showSongs) ?? d.showSongs
+        repeatSingleSong = try c.decodeIfPresent(Bool.self, forKey: .repeatSingleSong) ?? d.repeatSingleSong
+        loopSeconds = try c.decodeIfPresent(Int.self, forKey: .loopSeconds)
+        motionEnabled = try c.decodeIfPresent(Bool.self, forKey: .motionEnabled) ?? d.motionEnabled
+        noiseVolume = try c.decodeIfPresent(Double.self, forKey: .noiseVolume) ?? d.noiseVolume
+        fadeInSeconds = try c.decodeIfPresent(Double.self, forKey: .fadeInSeconds) ?? d.fadeInSeconds
+        fadeOutSeconds = try c.decodeIfPresent(Double.self, forKey: .fadeOutSeconds) ?? d.fadeOutSeconds
+        theme = try c.decodeIfPresent(ThemeChoice.self, forKey: .theme) ?? d.theme
+        lastMinutes = try c.decodeIfPresent(Int.self, forKey: .lastMinutes) ?? d.lastMinutes
+        source = try c.decodeIfPresent(SourceSelection.self, forKey: .source) ?? d.source
+        customLinkURL = try c.decodeIfPresent(String.self, forKey: .customLinkURL)
+        noticeShownProviders = try c.decodeIfPresent([String].self, forKey: .noticeShownProviders) ?? []
+        notificationPromptShown = try c.decodeIfPresent(Bool.self, forKey: .notificationPromptShown) ?? false
+        lockScreenPrivate = try c.decodeIfPresent(Bool.self, forKey: .lockScreenPrivate) ?? false
+    }
 
     /// 새 세션에 적용할 표시 방식. 음악 없음은 시간만 표시가 기본이다 (§6.1).
     func displayMode(for source: SourceType) -> DisplayMode {

@@ -40,6 +40,10 @@ final class SessionStore {
     @ObservationIgnored let notifications: NotificationScheduling
     @ObservationIgnored let launcher: ExternalLaunching
     @ObservationIgnored let resultSink: SessionResultSink
+    /// 잠금화면 Live Activity. 테스트에서는 nil.
+    @ObservationIgnored let liveActivity: LiveActivityController?
+    /// 진행 중 Live Activity를 곡 구간이 바뀔 때만 갱신하기 위한 키.
+    @ObservationIgnored private var liveActivityKey: String?
     let noise: NoisePlayer
 
     // MARK: 상태
@@ -79,6 +83,7 @@ final class SessionStore {
         notifications: NotificationScheduling = UserNotificationScheduler(),
         launcher: ExternalLaunching = UIApplicationLauncher(),
         resultSink: SessionResultSink = StandaloneResultSink(),
+        liveActivity: LiveActivityController? = nil,
         noise: NoisePlayer = NoisePlayer()
     ) {
         self.clock = clock
@@ -86,6 +91,7 @@ final class SessionStore {
         self.notifications = notifications
         self.launcher = launcher
         self.resultSink = resultSink
+        self.liveActivity = liveActivity
         self.noise = noise
         let now = clock.now()
         self.now = now
@@ -204,6 +210,7 @@ final class SessionStore {
         let title = keepTitle ? (checkpoint?.taskTitle ?? "") : ""
         checkpoint = nil
         store.deleteCheckpoint()
+        syncLiveActivity()
         draftTitle = title
         isInfinite = false
         selectedMinutes = settings.lastMinutes
@@ -385,8 +392,10 @@ final class SessionStore {
         change(&next)
         next = next.sanitized()
         guard next != settings else { return }
+        let privacyChanged = next.lockScreenPrivate != settings.lockScreenPrivate
         settings = next
         saveSettings(next)
+        if privacyChanged { syncLiveActivity() }
         if noise.state == .playing { noise.setVolume(next.noiseVolume) }
     }
 
@@ -412,6 +421,7 @@ final class SessionStore {
     func deleteAllData() {
         noise.stop(fadeOut: 0)
         enqueueNotificationWork { notifications in await notifications.cancelAll() }
+        liveActivity?.endAll()
         store.deleteAll()
         settings = AppSettings()
         thoughts = []
@@ -430,6 +440,7 @@ final class SessionStore {
         tick()
         reconcileNotifications()
         redeliverPendingResult()
+        syncLiveActivity()
         Task { notificationsDenied = await notifications.authorizationDenied() }
         startTicker()
     }
@@ -492,6 +503,25 @@ final class SessionStore {
             return
         }
         confirmProgress(force: false)
+        if let d = display(at: now), liveActivityKey != "\(cp.state)-\(d.segmentIndex)-\(d.isLastUnit)" {
+            syncLiveActivity()
+        }
+    }
+
+    /// 잠금화면 버튼 명령 (LiveActivityIntent).
+    func handleIntent(_ command: SessionIntentCommand) {
+        switch command {
+        case .pause: send(.pause)
+        case .resume: send(.resume)
+        case .finish: send(.finish)
+        }
+    }
+
+    func syncLiveActivity() {
+        guard let liveActivity else { return }
+        let d = display()
+        liveActivityKey = checkpoint.flatMap { cp in d.map { "\(cp.state)-\($0.segmentIndex)-\($0.isLastUnit)" } }
+        liveActivity.sync(checkpoint, display: d, privateMode: settings.lockScreenPrivate)
     }
 
     // MARK: - 내부
@@ -518,6 +548,7 @@ final class SessionStore {
         checkpoint = cp
         persist(cp)
         for effect in effects { perform(effect, for: cp) }
+        if !effects.isEmpty || liveActivityKey == nil { syncLiveActivity() }
     }
 
     private func persist(_ cp: SessionCheckpoint) {

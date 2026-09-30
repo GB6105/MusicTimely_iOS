@@ -16,7 +16,7 @@ settings:
     # Swift 6 언어 모드 (동시성 검사는 complete가 기본값)
     SWIFT_VERSION: "6.0"
     SWIFT_APPROACHABLE_CONCURRENCY: YES
-    MARKETING_VERSION: "1.0.0"
+    MARKETING_VERSION: "1.1.0"
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_USER_SCRIPT_SANDBOXING: YES
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
@@ -34,12 +34,19 @@ targets:
         excludes:
           # 빈 폴더 유지용 파일. 제외하지 않으면 리소스로 복사되며 이름이 겹쳐 빌드가 실패한다.
           - "**/.gitkeep"
+      # 앱과 위젯 확장이 함께 쓰는 코드 (Live Activity 데이터, 잠금화면 명령, 작은 레코드)
+      - path: Shared
+        type: syncedFolder
+    dependencies:
+      - target: MusicTimelyWidgets
+        embed: true
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
         # 생성 plist에 없는 키(폰트, 백그라운드 오디오, 음악 앱 스킴)는 이 파일에서 병합한다.
         INFOPLIST_FILE: Config/MusicTimely-Info.plist
         INFOPLIST_KEY_CFBundleDisplayName: MusicTimely
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
@@ -56,6 +63,25 @@ targets:
         - MusicTimelyTests
         - MusicTimelyUITests
       gatherCoverageData: true
+
+  MusicTimelyWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: MusicTimelyWidgets
+        type: syncedFolder
+      - path: Shared
+        type: syncedFolder
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.gb6105.MusicTimely.Widgets
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: Config/MusicTimelyWidgets-Info.plist
+        INFOPLIST_KEY_CFBundleDisplayName: MusicTimely
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: YES
+        # WidgetKit 프로토콜은 nonisolated라 기본 격리를 두지 않는다.
 
   MusicTimelyTests:
     type: bundle.unit-test

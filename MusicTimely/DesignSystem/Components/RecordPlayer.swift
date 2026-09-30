@@ -91,18 +91,21 @@ struct Tonearm: View {
     }
 }
 
-/// 레코드 + 톤암 (326 × 286). 회전은 앱이 직접 내는 소리가 재생 중일 때만 (§11.1).
+/// 레코드 + 톤암 (326 × 286). 세션이 진행 중일 때만 돈다. 각도는 세션 경과에서 계산해 멈춤·재개가 이어진다.
 struct RecordPlayer: View {
     var armEngaged: Bool
     var spinning: Bool
     var motionEnabled: Bool
+    /// 주어진 시각의 세션 활성 경과(초).
+    var elapsedSeconds: (Date) -> Double
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var rotation: Double = 0
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            VinylRecord()
-                .rotationEffect(.degrees(rotation))
+            TimelineView(.animation(minimumInterval: 1.0 / 30, paused: !(spinning && animationsOn))) { context in
+                VinylRecord()
+                    .rotationEffect(.degrees(angle(at: context.date)))
+            }
             Tonearm(engaged: armEngaged)
                 .animation(
                     animationsOn
@@ -110,14 +113,13 @@ struct RecordPlayer: View {
                     value: armEngaged)
         }
         .frame(width: 326, height: 286, alignment: .topLeading)
-        .task(id: spinning && animationsOn) {
-            guard spinning && animationsOn else { return }
-            while !Task.isCancelled {
-                withAnimation(.linear(duration: 1)) { rotation += 360 / Theme.Motion.recordRevolution }
-                try? await Task.sleep(for: .seconds(1))
-            }
-        }
     }
 
     private var animationsOn: Bool { motionEnabled && !reduceMotion }
+
+    private func angle(at date: Date) -> Double {
+        guard animationsOn else { return 0 }
+        let degrees = elapsedSeconds(date) * 360 / Theme.Motion.recordRevolution
+        return degrees.truncatingRemainder(dividingBy: 360)
+    }
 }

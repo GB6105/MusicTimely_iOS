@@ -47,9 +47,9 @@ struct SessionView: View {
                 ZStack {
                     RecordPlayer(
                         armEngaged: cp.state == .running,
-                        spinning: cp.sourceType == .builtinNoise && store.noise.state == .playing
-                            && cp.state == .running,
-                        motionEnabled: store.settings.motionEnabled
+                        spinning: cp.state == .running,
+                        motionEnabled: store.settings.motionEnabled,
+                        elapsedSeconds: { date in Self.elapsedSeconds(cp, at: date) }
                     )
                     .offset(x: 16)
                     if cp.state == .paused { pausedPill }
@@ -72,6 +72,16 @@ struct SessionView: View {
             .padding(.bottom, 24)
         }
         .background(palette.background.ignoresSafeArea())
+    }
+
+    /// 레코드 회전용 경과(초). 표시용이라 벽시계로 보간한다.
+    private static func elapsedSeconds(_ cp: SessionCheckpoint, at date: Date) -> Double {
+        var ms = Double(cp.accumulatedActiveMs)
+        if cp.state == .running, let anchor = cp.anchorWallEpochMs {
+            ms += max(0, date.timeIntervalSince1970 * 1_000 - Double(anchor))
+        }
+        if let target = cp.allocation.currentTargetMs { ms = min(ms, Double(target)) }
+        return ms / 1_000
     }
 
     private func header(_ cp: SessionCheckpoint) -> some View {

@@ -117,6 +117,25 @@
 - 레코드 회전은 명세서 §11.1을 따른다. D0에서는 정지 상태가 기본이고, 톤암 위치는 세션 상태만 뜻한다. 레코드는 탭 가능한 재생 버튼이 아니다.
 - 에셋: `assets/vinyl-*`, `assets/tonearm-*`. 홈 동심원은 SwiftUI `Circle().stroke`로 그려도 된다.
 
+### 레코드 회전 (명세서와 다르게 결정)
+
+- 명세서 §11.1은 외부 음악(D0)일 때 레코드를 기본 정지로 두지만, 제품 결정(2026-10-01)으로 **세션이 진행 중이면 모든 소스에서 돈다**.
+- 한 바퀴 12초. 각도는 세션 경과에서 계산해 일시정지하면 그 자리에 멈추고 재개하면 이어진다.
+- "곡 정보 없이 평균 길이로 추정 중" 문구는 유지해, 회전이 실제 재생 표시로 오인되지 않게 한다.
+- 설정의 "레코드·톤암 움직임" OFF 또는 시스템 동작 줄이기면 멈춘 이미지.
+
+## 잠금화면 (`lock-screen-and-components.png`)
+
+| 피그마 | 구현 |
+|---|---|
+| Live Activity 7 states | `MusicTimelyWidgets/SessionLiveActivity.swift` — Running(Light/Dark는 시스템 모드), Last amount, Paused, Private, Ended, Unlimited + 배정 도달 |
+| Dynamic Island compact·minimal·expanded | 같은 파일 `dynamicIsland` |
+| WidgetKit vibrant 3 sizes | `MusicTimelyWidgets/LauncherWidget.swift` (곡 수·초 단위 값 없음) |
+| Android system template | 해당 없음 (iOS 전용) |
+
+- 칩은 `ProgressView(timerInterval:)`로 각 구간이 스스로 차오른다. "약 N번째 곡" 문구는 앱이 갱신할 때만 바뀌고, 다음 곡 경계가 지나면 "집중 세션 진행 중"으로 바뀐다 (staleDate).
+- 피그마 Paused의 "음악은 그대로"는 명세서 §3.1에 따라 "음악은 음악 앱에서"로 바꿨다.
+
 ## 에셋 (`assets/`)
 
 | 파일 | 용도 |

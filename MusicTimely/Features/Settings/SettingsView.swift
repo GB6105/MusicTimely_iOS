@@ -50,6 +50,7 @@ struct SettingsView: View {
                         Text("다크").tag(ThemeChoice.dark)
                     }
                     Toggle("레코드·톤암 움직임", isOn: binding(\.motionEnabled))
+                    Toggle("잠금화면에서 세부 숨기기", isOn: binding(\.lockScreenPrivate))
                 }
 
                 Section("앱에서 내는 소리") {

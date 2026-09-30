@@ -97,4 +97,26 @@ final class MusicTimelyUITests: XCTestCase {
         XCTAssertTrue(app.otherElements["session.panel"].label.contains("남음"))
         XCTAssertFalse(app.otherElements["session.panel"].label.contains("곡"))
     }
+
+    /// 잠금화면 Live Activity의 '세션 멈춤' 버튼이 앱 세션을 멈춘다.
+    @MainActor
+    func testLockScreenPauseButton() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTesting", "-uiLiveActivity", "-uiSeed", "running"]
+        app.launch()
+        XCTAssertTrue(app.otherElements["session.panel"].waitForExistence(timeout: 10))
+        XCUIDevice.shared.press(.home)
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        XCUIDevice.shared.perform(NSSelectorFromString("pressLockButton"))
+        sleep(1)
+        XCUIDevice.shared.perform(NSSelectorFromString("pressLockButton"))
+        let allow = springboard.buttons["허용"]
+        if allow.waitForExistence(timeout: 3) { allow.tap() }
+        let pause = springboard.buttons["세션 멈춤"]
+        guard pause.waitForExistence(timeout: 10) else {
+            throw XCTSkip("잠금화면 Live Activity를 찾지 못했다 (시뮬레이터 잠금 상태 확인 필요)")
+        }
+        pause.tap()
+        XCTAssertTrue(springboard.buttons["세션 재개"].waitForExistence(timeout: 10))
+    }
 }
