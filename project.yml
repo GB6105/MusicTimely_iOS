@@ -1,0 +1,84 @@
+# XcodeGen 프로젝트 정의. 설정 변경은 이 파일에서 하고 `make generate`로 .xcodeproj를 재생성한다.
+name: MusicTimely
+
+options:
+  bundleIdPrefix: com.gb6105
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: en
+  defaultConfig: Debug
+  indentWidth: 4
+  tabWidth: 4
+  usesTabs: false
+
+settings:
+  base:
+    # Swift 6 언어 모드 (동시성 검사는 complete가 기본값)
+    SWIFT_VERSION: "6.0"
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+
+targets:
+  MusicTimely:
+    type: application
+    platform: iOS
+    sources:
+      # 동기화 폴더: 파일을 추가/삭제해도 재생성 없이 자동 반영
+      - path: MusicTimely
+        type: syncedFolder
+        excludes:
+          # 빈 폴더 유지용 파일. 제외하지 않으면 리소스로 복사되며 이름이 겹쳐 빌드가 실패한다.
+          - "**/.gitkeep"
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: MusicTimely
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_PREVIEWS: YES
+        # 선언의 기본 격리는 MainActor. 백그라운드 코드는 nonisolated / @concurrent로 명시한다.
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    scheme:
+      testTargets:
+        - MusicTimelyTests
+        - MusicTimelyUITests
+      gatherCoverageData: true
+
+  MusicTimelyTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MusicTimelyTests
+        type: syncedFolder
+    dependencies:
+      - target: MusicTimely
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        # 앱 타입(MainActor)을 await 없이 테스트하도록 앱과 같은 기본 격리를 쓴다.
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+
+  MusicTimelyUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: MusicTimelyUITests
+        type: syncedFolder
+    dependencies:
+      - target: MusicTimely
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        # 기본 격리 MainActor를 쓰지 않는다 (XCTestCase 이니셜라이저와 격리 충돌).
+        # XCUIApplication을 쓰는 테스트 메서드에 @MainActor를 붙인다.

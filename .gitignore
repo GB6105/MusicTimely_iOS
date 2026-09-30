@@ -1,0 +1,23 @@
+# Xcode 사용자별 상태 (프로젝트 파일 자체는 커밋: project.yml → make generate 로 재생성)
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# 빌드 산출물
+.build/
+DerivedData/
+build/
+*.ipa
+*.dSYM
+*.dSYM.zip
+*.xcresult
+
+# Swift Package Manager
+.swiftpm/
+
+# 도구·OS
+**/.omc/*
+!**/.omc/skills/
+.DS_Store
+*.swp
