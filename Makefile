@@ -5,7 +5,7 @@ DESTINATION ?= platform=iOS Simulator,name=iPhone 14 Pro,OS=26.5
 DERIVED     := .build/DerivedData
 SOURCES     := MusicTimely MusicTimelyTests MusicTimelyUITests
 
-.PHONY: help generate open build test unit-test lint format clean archive testflight check-release-env
+.PHONY: help generate open build test unit-test lint format clean archive testflight check-release-env device
 
 help: ## 명령 목록
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
@@ -51,3 +51,15 @@ archive: check-release-env generate ## 배포용 Release 보관 파일 생성 (�
 
 testflight: archive ## 보관 파일을 App Store Connect에 업로드 (TestFlight)
 	xcodebuild -exportArchive -archivePath $(ARCHIVE) -exportOptionsPlist Config/ExportOptions.plist -exportPath .build/export $(ASC_AUTH)
+
+# --- 개인 실기기 설치 (무료 Apple 계정 Personal Team 가능) ---
+# 사전 조건: Xcode > Settings > Accounts 로그인, iPhone 개발자 모드 켜기
+DEVICE_ID ?= $(shell xcrun devicectl list devices 2>/dev/null | awk '/physical/ && /available/ {for (i=1;i<=NF;i++) if ($$i ~ /^[0-9A-F]{8}-[0-9A-F]{16}$$/) {print $$i; exit}}')
+DEVICE_DERIVED := .build/DerivedData-device
+
+device: generate ## 연결된 iPhone에 빌드·설치·실행 (DEVELOPMENT_TEAM 필요)
+	@test -n "$(DEVELOPMENT_TEAM)" || (echo "DEVELOPMENT_TEAM(팀 ID)이 필요해요. Xcode > Settings > Accounts에서 확인할 수 있어요" && exit 1)
+	@test -n "$(DEVICE_ID)" || (echo "연결된 iPhone을 찾지 못했어요" && exit 1)
+	xcodebuild build -project $(PROJECT) -scheme $(SCHEME) -configuration Debug -destination 'id=$(DEVICE_ID)' -derivedDataPath $(DEVICE_DERIVED) -allowProvisioningUpdates DEVELOPMENT_TEAM=$(DEVELOPMENT_TEAM) -quiet
+	xcrun devicectl device install app --device $(DEVICE_ID) $(DEVICE_DERIVED)/Build/Products/Debug-iphoneos/$(SCHEME).app
+	xcrun devicectl device process launch --device $(DEVICE_ID) com.gb6105.MusicTimely

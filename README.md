@@ -24,6 +24,8 @@ make open    # project.yml로 .xcodeproj를 생성하고 Xcode에서 연다
 | `make unit-test` | 단위 테스트만 |
 | `make lint` / `make format` | swift-format 검사 / 자동 정렬 |
 | `make clean` | `.build/` 삭제 |
+| `make device DEVELOPMENT_TEAM=<팀ID>` | 연결된 iPhone에 설치·실행 (무료 Apple 계정 가능) |
+| `make testflight` | TestFlight 업로드 (App Store Connect API 키 필요) |
 
 기본 시뮬레이터는 `iPhone 14 Pro`입니다. 다른 기기를 쓰려면 `DESTINATION`을 지정합니다.
 
