@@ -10,7 +10,12 @@ struct SongDial: View {
         let count = min(max(units, 1), 12)
         let gap = count == 1 ? 0.0 : 0.035
         ZStack {
-            Circle().fill(palette.surface).frame(width: 132, height: 132).insetSurface(cornerRadius: 66)
+            // 카드 색이 표면과 다르면(Navy) 카드 위에 어두운 홈을 판다.
+            if palette.featureCard == palette.surface {
+                Circle().fill(palette.surface).frame(width: 132, height: 132).insetSurface(cornerRadius: 66)
+            } else {
+                Circle().fill(Color.black.opacity(0.28)).frame(width: 132, height: 132)
+            }
             ForEach(0..<count, id: \.self) { i in
                 let start = Double(i) / Double(count) + gap / 2
                 let end = Double(i + 1) / Double(count) - gap / 2

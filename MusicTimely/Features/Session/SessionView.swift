@@ -99,7 +99,7 @@ struct SessionView: View {
             } label: {
                 Image("icon-more").renderingMode(.template).foregroundStyle(palette.ink)
                     .frame(width: 44, height: 44)
-                    .background(Circle().fill(palette.surface)).raised()
+                    .background(Circle().fill(palette.surface).raised())
             }
             .accessibilityLabel("더 보기")
             .accessibilityIdentifier("session.more")
@@ -170,6 +170,8 @@ struct SessionView: View {
                 Text(text.title)
                     .font(AppFont.text(22, .bold, relativeTo: .title2))
                     .foregroundStyle(palette.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                     .accessibilityIdentifier("session.panelTitle")
                 Spacer(minLength: 8)
                 if let trailing = text.trailing {
@@ -190,8 +192,9 @@ struct SessionView: View {
         .padding(.horizontal, 22)
         .padding(.vertical, 18)
         .frame(maxWidth: .infinity, minHeight: 134, alignment: .topLeading)
-        .background(RoundedRectangle(cornerRadius: Theme.CornerRadius.panel, style: .continuous).fill(palette.surface))
-        .raised()
+        .background(
+            RoundedRectangle(cornerRadius: Theme.CornerRadius.panel, style: .continuous).fill(palette.surface).raised()
+        )
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(text.accessibility)
         .accessibilityIdentifier("session.panel")
@@ -204,8 +207,7 @@ struct SessionView: View {
                     .font(AppFont.number(15, .medium, relativeTo: .subheadline))
                     .foregroundStyle(palette.ink)
                     .frame(width: 84, height: 48)
-                    .background(Capsule().fill(palette.surface))
-                    .raised()
+                    .background(Capsule().fill(palette.surface).raised())
                     .buttonStyle(.plain)
                     .accessibilityLabel("\(minutes)분 더 하기")
                     .accessibilityIdentifier("session.extend.\(minutes)")

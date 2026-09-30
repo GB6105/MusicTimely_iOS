@@ -9,7 +9,11 @@ struct MusicTimelyApp: App {
         // UI 테스트는 격리된 저장소에서 새로 시작한다.
         if arguments.contains("-uiTesting") {
             let dir = FileManager.default.temporaryDirectory.appending(path: "uitest-\(UUID().uuidString)")
-            let store = SessionStore(store: FileStateStore(directory: dir))
+            let fileStore = FileStateStore(directory: dir)
+            if let index = arguments.firstIndex(of: "-uiSeed"), index + 1 < arguments.count {
+                UITestSeed.apply(arguments[index + 1], to: fileStore)
+            }
+            let store = SessionStore(store: fileStore)
             if let index = arguments.firstIndex(of: "-uiTheme"), index + 1 < arguments.count,
                 let theme = ThemeChoice(rawValue: arguments[index + 1])
             {

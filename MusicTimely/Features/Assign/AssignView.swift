@@ -80,8 +80,7 @@ struct AssignView: View {
             .foregroundStyle(palette.ink)
             .padding(.horizontal, 20)
             .frame(minHeight: 52)
-            .background(Capsule().fill(palette.surface))
-            .raised()
+            .background(Capsule().fill(palette.surface).raised())
         }
         .buttonStyle(.plain)
         .padding(.top, 16)
@@ -179,8 +178,8 @@ struct AssignView: View {
         .frame(maxWidth: .infinity, minHeight: 188)
         .background(
             RoundedRectangle(cornerRadius: Theme.CornerRadius.card, style: .continuous).fill(palette.featureCard)
+                .raised()
         )
-        .raised()
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier("assign.translation")
     }
@@ -211,8 +210,7 @@ struct AssignView: View {
             }
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, minHeight: 68)
-            .background(Capsule().fill(palette.surface))
-            .raised()
+            .background(Capsule().fill(palette.surface).raised())
             .contentShape(Capsule())
         }
         .buttonStyle(.plain)

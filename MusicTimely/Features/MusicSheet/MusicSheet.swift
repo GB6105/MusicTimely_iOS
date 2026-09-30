@@ -69,8 +69,7 @@ struct MusicSheet: View {
             Text(title).font(AppFont.text(15, .bold, relativeTo: .headline)).foregroundStyle(palette.ink).padding(
                 .leading, 4)
             VStack(spacing: 0) { content() }
-                .background(RoundedRectangle(cornerRadius: 24, style: .continuous).fill(palette.surface))
-                .raised()
+                .background(RoundedRectangle(cornerRadius: 24, style: .continuous).fill(palette.surface).raised())
         }
         .padding(.bottom, 8)
     }

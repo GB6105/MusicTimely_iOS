@@ -26,8 +26,7 @@ struct TertiaryButtonStyle: ButtonStyle {
             .font(AppFont.text(17, .medium, relativeTo: .headline))
             .foregroundStyle(palette.ink)
             .frame(maxWidth: .infinity, minHeight: height)
-            .background(Capsule().fill(palette.surface))
-            .raised()
+            .background(Capsule().fill(palette.surface).raised())
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .contentShape(Capsule())
     }
@@ -42,8 +41,7 @@ struct SecondaryButtonStyle: ButtonStyle {
             .font(AppFont.text(17, .medium, relativeTo: .headline))
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, minHeight: 46)
-            .background(Capsule().fill(palette.navy))
-            .raised()
+            .background(Capsule().fill(palette.navy).raised())
             .opacity(configuration.isPressed ? 0.85 : 1)
             .contentShape(Capsule())
     }
@@ -68,8 +66,7 @@ struct CircleControl: View {
                 .frame(width: iconSize, height: iconSize)
                 .foregroundStyle(tint ?? palette.ink)
                 .frame(width: size, height: size)
-                .background(Circle().fill(palette.surface))
-                .raised()
+                .background(Circle().fill(palette.surface).raised())
                 .contentShape(Circle())
         }
         .buttonStyle(.plain)
