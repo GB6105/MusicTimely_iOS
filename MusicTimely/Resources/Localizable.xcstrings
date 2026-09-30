@@ -1,36 +1,7 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "ko",
   "strings" : {
-    "Home" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "홈"
-          }
-        }
-      }
-    },
-    "Version %@" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "버전 %@"
-          }
-        }
-      }
-    },
-    "Welcome to MusicTimely" : {
-      "localizations" : {
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "MusicTimely에 오신 것을 환영합니다"
-          }
-        }
-      }
-    }
+
   },
   "version" : "1.0"
 }

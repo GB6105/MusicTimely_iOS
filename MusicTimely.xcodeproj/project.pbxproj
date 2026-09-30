@@ -29,18 +29,6 @@
 		FB2A06D0A624966F0524D22F /* MusicTimely.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MusicTimely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		EA595B55F874EC92C06DFE48 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Core/Models/.gitkeep,
-				Core/Services/.gitkeep,
-				DesignSystem/Components/.gitkeep,
-			);
-			target = 9E9209186F51056C4FD6C39D /* MusicTimely */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		53FEBAD467ED93FE4317621B /* MusicTimelyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -53,9 +41,6 @@
 		};
 		A2285F44F135F8D3F4CE11EE /* MusicTimely */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				EA595B55F874EC92C06DFE48 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
-			);
 			explicitFileTypes = {
 			};
 			explicitFolders = (
@@ -184,11 +169,11 @@
 				};
 			};
 			buildConfigurationList = BF0BB1E1FC340395C206D5F3 /* Build configuration list for PBXProject "MusicTimely" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				ko,
 			);
 			mainGroup = A55922723A24FD857AB1BEB6;
 			minimizedProjectReferenceProxies = 1;
@@ -328,6 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/MusicTimely-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -353,6 +339,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Config/MusicTimely-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MusicTimely;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

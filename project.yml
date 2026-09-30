@@ -5,7 +5,7 @@ options:
   bundleIdPrefix: com.gb6105
   deploymentTarget:
     iOS: "18.0"
-  developmentLanguage: en
+  developmentLanguage: ko
   defaultConfig: Debug
   indentWidth: 4
   tabWidth: 4
@@ -37,6 +37,8 @@ targets:
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
+        # 생성 plist에 없는 키(폰트, 백그라운드 오디오, 음악 앱 스킴)는 이 파일에서 병합한다.
+        INFOPLIST_FILE: Config/MusicTimely-Info.plist
         INFOPLIST_KEY_CFBundleDisplayName: MusicTimely
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
