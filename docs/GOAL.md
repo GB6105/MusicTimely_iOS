@@ -63,3 +63,5 @@
 | 3 | P3 로컬 파일 재생(O0): 파일 선택, 플레이리스트, 반복, 실제 곡 경계 | FR-033·034, §6.3 | 명세서상 개인 음원 단계 |
 | 3 | 호스트 연동: 작업 ID 기반 지난 시간 제안, 결과 콜백 실제 어댑터 | FR-006·040, §9.4 | 호스트 앱(Untangle 등) 결정 후 |
 | 4 | 동의 기반 분석 이벤트 | §10 | 서버·동의 정책 필요 |
+| 보류 | Apple Music 관측(D1): 재생 멈춤 → 세션 일시정지, 곡 전환 → 칩 보정 | PRD §5.2, 명세 D1 | `MPMusicPlayerController.systemMusicPlayer` + 폴링 폴백. Spotify·YouTube Music은 iOS 공개 API 없음 |
+| 보류 | 세션 → 음악 정지·재생 제어 | FR-025, PRD 비목표 6 | 비혼합 오디오 세션으로 전 앱 일시정지 가능하나 명세 금지, Spotify III.1·III.6 / ADPLA 3.3.6.D / Review 4.5.2(i) 위험 |

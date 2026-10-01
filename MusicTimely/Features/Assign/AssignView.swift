@@ -29,19 +29,12 @@ struct AssignView: View {
                     .foregroundStyle(palette.ink)
                     .padding(.leading, 4)
                     .padding(.top, 30)
-                chips.padding(.top, 12)
-                translationCard.padding(.top, 38)
-                musicRow.padding(.top, 28)
-                if activeSessionReturn == nil {
-                    Button(store.isInfinite ? "시간 정해서 하기" : "시간 정하지 않고 하기") {
-                        store.isInfinite.toggle()
-                    }
-                    .font(AppFont.text(13, .medium, relativeTo: .footnote))
-                    .foregroundStyle(palette.muted)
-                    .frame(maxWidth: .infinity, minHeight: 44)
-                    .padding(.top, 14)
-                    .accessibilityIdentifier("assign.infiniteToggle")
+                modeSwitch.padding(.top, 12)
+                if !store.isInfinite {
+                    chips.padding(.top, 18)
                 }
+                translationCard.padding(.top, store.isInfinite ? 24 : 38)
+                musicRow.padding(.top, 28)
             }
             .padding(.horizontal, Theme.Spacing.card)
             .padding(.bottom, 24)
@@ -104,6 +97,42 @@ struct AssignView: View {
         .disabled(activeSessionReturn != nil)
         .accessibilityLabel("작업 제목, 선택 입력")
         .accessibilityIdentifier("assign.title")
+    }
+
+    /// 정한 시간까지 하는 타이머와, 끝낼 때까지 경과만 재는 스톱워치 중 하나를 고른다.
+    private var modeSwitch: some View {
+        HStack(spacing: 4) {
+            modeOption("시간 정하기", selected: !store.isInfinite, id: "assign.mode.timer") {
+                store.isInfinite = false
+            }
+            modeOption("끝낼 때까지 재기", selected: store.isInfinite, id: "assign.mode.stopwatch") {
+                store.isInfinite = true
+            }
+        }
+        .padding(4)
+        .background(Capsule().fill(palette.surface).raised())
+        .disabled(activeSessionReturn != nil)
+        .animation(.easeInOut(duration: 0.2), value: store.isInfinite)
+    }
+
+    private func modeOption(
+        _ title: LocalizedStringKey, selected: Bool, id: String, action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(AppFont.text(14, selected ? .bold : .medium, relativeTo: .subheadline))
+                .foregroundStyle(selected ? .white : palette.muted)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .background {
+                    if selected { Capsule().fill(Palette.sunset) }
+                }
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(selected ? .isSelected : [])
+        .accessibilityIdentifier(id)
     }
 
     private var chips: some View {

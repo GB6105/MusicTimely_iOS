@@ -23,6 +23,25 @@ final class MusicTimelyUITests: XCTestCase {
     }
 
     @MainActor
+    func testStopwatchModeCountsUpWithoutTarget() {
+        let app = launch()
+        XCTAssertTrue(app.buttons["assign.mode.stopwatch"].waitForExistence(timeout: 10))
+        app.buttons["assign.mode.stopwatch"].tap()
+        XCTAssertFalse(app.buttons["assign.chip.10"].exists)
+        XCTAssertEqual(app.buttons["assign.start"].label, "시간 정하지 않고 시작")
+        app.buttons["assign.start"].tap()
+
+        let panel = app.otherElements["session.panel"]
+        XCTAssertTrue(panel.waitForExistence(timeout: 5))
+        XCTAssertTrue(panel.label.contains("정한 시간 없이"), panel.label)
+
+        app.buttons["session.finish"].tap()
+        XCTAssertTrue(app.staticTexts["result.headline"].waitForExistence(timeout: 5))
+        app.buttons["result.next"].tap()
+        XCTAssertTrue(app.buttons["assign.chip.10"].waitForExistence(timeout: 3))
+    }
+
+    @MainActor
     func testSessionFlowFromStartToNewSession() {
         let app = launch()
         let title = app.textFields["assign.title"]
